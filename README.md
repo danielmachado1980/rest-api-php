@@ -54,6 +54,15 @@ php artisan migrate
 
 ```
 
+Com a migration, um novo usuário ADMIN será criado:
+```bash
+{
+  "email": "admin@example.com",
+  "password": "next"
+}
+
+```
+
 ## Executando o Servidor
 
 ```bash

@@ -309,6 +309,7 @@
                 "required": [
                     "name",
                     "email",
+                    "password",
                     "document",
                     "profile"
                 ],

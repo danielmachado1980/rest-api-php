@@ -10,7 +10,7 @@ use Illuminate\Http\JsonResponse;
 /**
  * @OA\Schema(
  *     schema="User",
- *     required={"name", "email", "document", "profile"},
+ *     required={"name", "email", "password", "document", "profile"},
  *     @OA\Property(property="id", type="integer", readOnly="true"),
  *     @OA\Property(property="name", type="string", description="Nome do usuário"),
  *     @OA\Property(property="email", type="string", format="email", description="Email do usuário"),
