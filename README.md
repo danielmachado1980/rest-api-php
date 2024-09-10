@@ -17,24 +17,26 @@ Além disso, é recomendável usar o [XAMPP](https://www.apachefriends.org/index
 
 Abra o terminal e execute o seguinte comando para clonar o repositório:
 
-```bash
+```sh
 git clone https://github.com/danielmachado1980/rest-api-php
 
-```bash
 cd rest-api-php
 
-```bash
 composer install
+
+```
 
 ### Configuração do Ambiente
 
 ```bash
 cp .env.example .env
 
-```bash
 php artisan key:generate
 
-Configure as variáveis de ambiente no arquivo .env, principalmente as configurações de banco de dados:
+```
+
+### Configure as variáveis de ambiente no arquivo .env, principalmente as configurações de banco de dados:
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
@@ -45,13 +47,15 @@ DB_PASSWORD={sua_senha}
 ```bash
 php artisan jwt:secret
 
-```bash
 php artisan migrate
+
+```
 
 ## Executando o Servidor
 
 ```bash
 php artisan serve
+```
 
 Acesse em http://localhost:8000/api/documentation
 
