@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use App\Http\Requests\ValidarDocumentoRequest;
+use App\Http\Requests\ValidateRequest;
 use Illuminate\Http\JsonResponse;
 
 /**
@@ -18,7 +18,7 @@ use Illuminate\Http\JsonResponse;
  *     @OA\Property(property="created_at", type="string", format="date-time", readOnly="true"),
  *     @OA\Property(property="updated_at", type="string", format="date-time", readOnly="true"),
  *     @OA\Property(property="document", type="string", description="Documento do usuário"),
- *     @OA\Property(property="phone_number", type="string", description="Telefone do usuário"),
+ *     @OA\Property(property="phone_number", type="string", description="Telefone do usuário 9999-9999 ou (99)9999-9999 ou (99) 9999-9999"),
  *     @OA\Property(property="profile", type="string", description="Perfil do usuário (R=Regular / A=Admin)")
  * )
  */
@@ -69,7 +69,7 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function store(ValidarDocumentoRequest $request): JsonResponse
+    public function store(ValidateRequest $request): JsonResponse
     {
         $user = User::create($request->validated());
         return response()->json($user, 201);
@@ -132,11 +132,10 @@ class UserController extends Controller
      *     )
      * )
      */
-    public function update(Request $request, $id)
+    public function update(ValidateRequest $request, $id)
     {
-        $user->update($request->validated());
         $user = User::findOrFail($id);
-        $user->update($request->all());
+        $user->update($request->validated());
         return response()->json($user, 200);
     }
 
