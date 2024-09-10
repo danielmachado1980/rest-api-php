@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarDocumentoRequest;
+use Illuminate\Http\JsonResponse;
 
 /**
  * @OA\Schema(
  *     schema="User",
- *     required={"name", "email"},
+ *     required={"name", "email", "document", "profile"},
  *     @OA\Property(property="id", type="integer", readOnly="true"),
  *     @OA\Property(property="name", type="string", description="Nome do usuário"),
  *     @OA\Property(property="email", type="string", format="email", description="Email do usuário"),
@@ -54,12 +56,22 @@ class UserController extends Controller
      *         @OA\JsonContent(ref="#/components/schemas/User")
      *     ),
      *     @OA\Response(response=201, description="Usuário criado"),
-     *     @OA\Response(response=401, description="Não autorizado")
+     *     @OA\Response(response=401, description="Não autorizado"),
+     *     @OA\Response(response=403, description="Não autorizado"),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erros de validação",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Erros de validação."),
+     *             @OA\Property(property="errors", type="object")
+     *         )
+     *     )
      * )
      */
-    public function store(Request $request)
+    public function store(ValidarDocumentoRequest $request): JsonResponse
     {
-        $user = User::create($request->all());
+        $user = User::create($request->validated());
         return response()->json($user, 201);
     }
 
@@ -107,11 +119,22 @@ class UserController extends Controller
      *     ),
      *     @OA\Response(response=200, description="Usuário atualizado"),
      *     @OA\Response(response=404, description="Usuário não encontrado"),
-     *     @OA\Response(response=401, description="Não autorizado")
+     *     @OA\Response(response=401, description="Não autorizado"),
+     *     @OA\Response(response=403, description="Não autorizado"),
+     *     @OA\Response(
+     *         response=422,
+     *         description="Erros de validação",
+     *         @OA\JsonContent(
+     *             @OA\Property(property="success", type="boolean", example=false),
+     *             @OA\Property(property="message", type="string", example="Erros de validação."),
+     *             @OA\Property(property="errors", type="object")
+     *         )
+     *     )
      * )
      */
     public function update(Request $request, $id)
     {
+        $user->update($request->validated());
         $user = User::findOrFail($id);
         $user->update($request->all());
         return response()->json($user, 200);
@@ -131,6 +154,7 @@ class UserController extends Controller
      *         required=true,
      *         @OA\Schema(type="integer")
      *     ),
+     *     @OA\Response(response=403, description="Não autorizado"),
      *     @OA\Response(response=204, description="Usuário deletado"),
      *     @OA\Response(response=404, description="Usuário não encontrado"),
      *     @OA\Response(response=401, description="Não autorizado")

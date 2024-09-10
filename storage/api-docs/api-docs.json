@@ -121,6 +121,32 @@
                     },
                     "401": {
                         "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "422": {
+                        "description": "Erros de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erros de validação."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -203,6 +229,32 @@
                     },
                     "401": {
                         "description": "Não autorizado"
+                    },
+                    "403": {
+                        "description": "Não autorizado"
+                    },
+                    "422": {
+                        "description": "Erros de validação",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Erros de validação."
+                                        },
+                                        "errors": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -230,6 +282,9 @@
                     }
                 ],
                 "responses": {
+                    "403": {
+                        "description": "Não autorizado"
+                    },
                     "204": {
                         "description": "Usuário deletado"
                     },
@@ -253,7 +308,9 @@
             "User": {
                 "required": [
                     "name",
-                    "email"
+                    "email",
+                    "document",
+                    "profile"
                 ],
                 "properties": {
                     "id": {
