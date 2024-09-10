@@ -37,12 +37,15 @@ php artisan key:generate
 
 ### Configure as variáveis de ambiente no arquivo .env, principalmente as configurações de banco de dados:
 
+```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=next
 DB_USERNAME={seu_usuario}
 DB_PASSWORD={sua_senha}
+
+```
 
 ```bash
 php artisan jwt:secret
